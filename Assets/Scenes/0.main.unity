@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067fc3767baeec84286ced0d6f37235e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UI: {fileID: 799963375}
   text: {fileID: 1154624915}
 --- !u!4 &1029694166
 Transform:
@@ -348,13 +349,13 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 45
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 300
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 0
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Welcome to Meme Dungeon 2.0
