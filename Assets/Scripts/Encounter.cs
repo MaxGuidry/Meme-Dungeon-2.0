@@ -4,42 +4,28 @@ using UnityEngine;
 
 public class Encounter : MonoBehaviour
 {
-
-    private Color c;
-    private Renderer rend;
-    private Color original;
     [HideInInspector]
-    public bool stay;
+    public Vector2 position;
+    public GameObject displayUI;
     // Use this for initialization
     void Start()
     {
-        rend = GetComponentInParent<Renderer>();
-        c = Random.ColorHSV();
-        original = rend.material.color;
-        stay = false;
+        displayUI = GameObject.FindGameObjectWithTag("Grid");
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
-        {
-            rend.material.color = c;
-            other.GetComponentInParent<PlayerWalk>().nodesOn.Add(gameObject);
-
-        }
-
+        other.gameObject.transform.position = other.gameObject.transform.position;
+        Debug.Log("we made it");
+        displayUI.GetComponent<PlayerController2>().Nodes[position].GetComponent<Renderer>().material.color = Color.red;
     }
   
     void OnTriggerExit(Collider other)
     {
+        other.gameObject.transform.position = other.gameObject.transform.position;
 
-        if (other.tag == "Player")
-        {
-            if (!stay)
-                rend.material.color = original;
-            other.GetComponentInParent<PlayerWalk>().nodesOn.Remove(gameObject);
+        displayUI.GetComponent<PlayerController2>().Nodes[position].GetComponent<Renderer>().material.color = Color.white;
 
-        }
 
     }
 }

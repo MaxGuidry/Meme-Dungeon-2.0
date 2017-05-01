@@ -6,6 +6,7 @@ public class PlayerWalk : MonoBehaviour
 {
     [HideInInspector]
     public List<GameObject> nodesOn;
+    public GameObject cameraAttached;
     // Use this for initialization
     void Start()
     {
@@ -17,34 +18,20 @@ public class PlayerWalk : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            this.transform.position += this.transform.forward * .03f;
-        }
+            this.transform.position += new Vector3(cameraAttached.transform.forward.x, 0, cameraAttached.transform.forward.z) *.03f;
+        }   
         if(Input.GetKey(KeyCode.S))
         {
-            this.transform.position += this.transform.forward * -.03f;
+            this.transform.position += new Vector3(cameraAttached.transform.forward.x, 0, cameraAttached.transform.forward.z) * -.03f;
         }
         if(Input.GetKey(KeyCode.A))
         {
-            this.transform.position += this.transform.right * -.03f;
+            this.transform.position += new Vector3(cameraAttached.transform.right.x, 0, cameraAttached.transform.right.z) * -.03f;
         }
         if(Input.GetKey(KeyCode.D))
         {
-            this.transform.position += this.transform.right * .03f;
+            this.transform.position += new Vector3(cameraAttached.transform.right.x, 0, cameraAttached.transform.right.z) * .03f;
         }
-        if(Input.GetKey(KeyCode.Space))
-        {
-            if(nodesOn.Count !=0)
-            {
-                foreach(GameObject g in nodesOn)g.GetComponent<Encounter>().stay = true;
-            }
-            
-        }
-        if(Input.GetKey(KeyCode.R))
-        {
-            if(nodesOn.Count !=0)
-            {
-                foreach (GameObject g in nodesOn) g.GetComponent<Encounter>().stay = false;
-            }
-        }
+        
     }
 }

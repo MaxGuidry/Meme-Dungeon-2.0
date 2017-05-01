@@ -8,15 +8,16 @@ public class PlayerController2 : MonoBehaviour
     public Canvas UI;
     private Vector2 position;
     public Text text;
-    private Dictionary<Vector2, GameObject> Nodes = new Dictionary<Vector2, GameObject>();
+    [HideInInspector]
+    public Dictionary<Vector2, GameObject> Nodes = new Dictionary<Vector2, GameObject>();
     private List<string> inventory = new List<string>();
     // Use this for initialization
     void Start()
     {
         position = Vector2.zero;
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 5; i++)
         {
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < 5; j++)
             {
                 Vector2 v = new Vector2(i, j);
                 GameObject go = GameObject.CreatePrimitive(PrimitiveType.Quad);
@@ -30,7 +31,7 @@ public class PlayerController2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inputManager();
+        
     }
 
     void inputManager()

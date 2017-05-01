@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     private Vector3 prevMousePos;
     private Vector3 currentMousePos;
+    public GameObject follow;
+
     void Start()
     {
         currentMousePos = Input.mousePosition;
@@ -15,12 +17,30 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Quaternion originRot = this.transform.rotation;
+        this.transform.rotation = new Quaternion(0, 0, 0, 1);
+
+
+
+
         prevMousePos = currentMousePos;
         currentMousePos = Input.mousePosition;
+        Vector3 dif = currentMousePos - prevMousePos;
 
-        float angle = Mathf.Acos(Vector3.Dot(prevMousePos, currentMousePos) / (prevMousePos.magnitude * currentMousePos.magnitude));
-        this.transform.rotation = this.transform.rotation * new Quaternion(0, Mathf.Sin(angle / 2), 0, Mathf.Cos(angle / 2));
+
+        Quaternion combineRot = new Quaternion(0, Mathf.Sin(((dif.x / 150f) + ((originRot.eulerAngles.y * Mathf.PI) / 180)) / 2f), 0, Mathf.Cos(((dif.x / 150f) + ((originRot.eulerAngles.y * Mathf.PI) / 180)) / 2)) * new Quaternion(Mathf.Sin(((-dif.y / 100f) + ((originRot.eulerAngles.x * Mathf.PI) / 180)) / 2f), 0, 0, Mathf.Cos(((-dif.y / 100f) + ((originRot.eulerAngles.x * Mathf.PI) / 180)) / 2));//new Quaternion(Mathf.Sin(-dif.y / 200), 0, 0, Mathf.Cos(-dif.y / 200));
+
+
+        //Quaternion finalRot = new Quaternion(0, Mathf.Sin((Mathf.PI * originRot.eulerAngles.y) / (180 * 2)), 0, Mathf.Cos((Mathf.PI * originRot.eulerAngles.y) / (180 * 2))) * new Quaternion(Mathf.Sin((-Mathf.PI * originRot.eulerAngles.x) / (180 * 200)), 0, 0, Mathf.Cos((-Mathf.PI * originRot.eulerAngles.x) / (180 * 200)));
+        //Quaternion qf = combineRot * finalRot;
+        
+        this.transform.rotation = this.transform.rotation * combineRot;
+        if ((this.transform.eulerAngles.x > 265 && this.transform.eulerAngles.x < 275) || (this.transform.eulerAngles.x > 85 && this.transform.eulerAngles.x < 95))
+            this.transform.rotation = originRot;
+            
+            //this.transform.rotation = this.transform.rotation * finalRot;
+        this.transform.position = follow.transform.position;
     }
 
-  
+
 }
