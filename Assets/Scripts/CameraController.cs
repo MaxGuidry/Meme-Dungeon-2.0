@@ -27,18 +27,15 @@ public class CameraController : MonoBehaviour
         currentMousePos = Input.mousePosition;
         Vector3 dif = currentMousePos - prevMousePos;
 
+        Quaternion combineRot = new Quaternion(0, Mathf.Sin(((dif.x / 150f) + ((originRot.eulerAngles.y * Mathf.PI) / 180)) / 2f), 0, Mathf.Cos(((dif.x / 150f)
+            + ((originRot.eulerAngles.y * Mathf.PI) / 180)) / 2)) * 
+            new Quaternion(Mathf.Sin(((-dif.y / 100f) + ((originRot.eulerAngles.x * Mathf.PI) / 180)) / 2f), 0, 0, Mathf.Cos(((-dif.y / 100f) + 
+            ((originRot.eulerAngles.x * Mathf.PI) / 180)) / 2));
 
-        Quaternion combineRot = new Quaternion(0, Mathf.Sin(((dif.x / 150f) + ((originRot.eulerAngles.y * Mathf.PI) / 180)) / 2f), 0, Mathf.Cos(((dif.x / 150f) + ((originRot.eulerAngles.y * Mathf.PI) / 180)) / 2)) * new Quaternion(Mathf.Sin(((-dif.y / 100f) + ((originRot.eulerAngles.x * Mathf.PI) / 180)) / 2f), 0, 0, Mathf.Cos(((-dif.y / 100f) + ((originRot.eulerAngles.x * Mathf.PI) / 180)) / 2));//new Quaternion(Mathf.Sin(-dif.y / 200), 0, 0, Mathf.Cos(-dif.y / 200));
-
-
-        //Quaternion finalRot = new Quaternion(0, Mathf.Sin((Mathf.PI * originRot.eulerAngles.y) / (180 * 2)), 0, Mathf.Cos((Mathf.PI * originRot.eulerAngles.y) / (180 * 2))) * new Quaternion(Mathf.Sin((-Mathf.PI * originRot.eulerAngles.x) / (180 * 200)), 0, 0, Mathf.Cos((-Mathf.PI * originRot.eulerAngles.x) / (180 * 200)));
-        //Quaternion qf = combineRot * finalRot;
-        
         this.transform.rotation = this.transform.rotation * combineRot;
         if ((this.transform.eulerAngles.x > 265 && this.transform.eulerAngles.x < 275) || (this.transform.eulerAngles.x > 85 && this.transform.eulerAngles.x < 95))
             this.transform.rotation = originRot;
             
-            //this.transform.rotation = this.transform.rotation * finalRot;
         this.transform.position = follow.transform.position;
     }
 
