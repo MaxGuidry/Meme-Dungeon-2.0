@@ -8,20 +8,20 @@ public class CameraController : MonoBehaviour
     private Vector3 prevMousePos;
     private Vector3 currentMousePos;
     public GameObject follow;
-
+    
     void Start()
     {
         currentMousePos = Input.mousePosition;
-
+        
+        Cursor.lockState = CursorLockMode.Confined;
+        
     }
     // Update is called once per frame
     void Update()
     {
+        
         Quaternion originRot = this.transform.rotation;
         this.transform.rotation = new Quaternion(0, 0, 0, 1);
-
-
-
 
         prevMousePos = currentMousePos;
         currentMousePos = Input.mousePosition;
@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour
 
         Quaternion combineRot = new Quaternion(0, Mathf.Sin(((dif.x / 150f) + ((originRot.eulerAngles.y * Mathf.PI) / 180)) / 2f), 0, Mathf.Cos(((dif.x / 150f)
             + ((originRot.eulerAngles.y * Mathf.PI) / 180)) / 2)) * 
-            new Quaternion(Mathf.Sin(((-dif.y / 100f) + ((originRot.eulerAngles.x * Mathf.PI) / 180)) / 2f), 0, 0, Mathf.Cos(((-dif.y / 100f) + 
+            new Quaternion(Mathf.Sin(((-dif.y / 150f) + ((originRot.eulerAngles.x * Mathf.PI) / 180)) / 2f), 0, 0, Mathf.Cos(((-dif.y / 150f) + 
             ((originRot.eulerAngles.x * Mathf.PI) / 180)) / 2));
 
         this.transform.rotation = this.transform.rotation * combineRot;
@@ -37,6 +37,7 @@ public class CameraController : MonoBehaviour
             this.transform.rotation = originRot;
             
         this.transform.position = follow.transform.position;
+       
     }
 
 
