@@ -16,7 +16,7 @@ public class Encounter : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         other.gameObject.transform.position = other.gameObject.transform.position;
-        Debug.Log("we made it");
+       // Debug.Log("we made it");
         displayUI.GetComponent<PlayerController2>().Nodes[position].GetComponent<Renderer>().material.color = Color.red;
     }
   
